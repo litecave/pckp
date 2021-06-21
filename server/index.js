@@ -78,15 +78,13 @@ app.get('/api/package/:pkg/download', (req, res) => {
   }
   
   if (name in db.get_key('packages')) {
-    if (!(ver in db.get_key(`packages/${name}/versions`))) {
+    if (!db.get_key(`packages/${name}/versions`).includes(ver)) {
       res.status(404).send('Version not found.')
       return
     }
 
     res.status(200).download(
-      `${__dirname}/packages/${name}/${
-        req.params.pkg.split('-')[1]
-      }.zip`, `${name}-${ver}.zip`
+      `${__dirname}/packages/${name}/${ver}.zip`, `${name}-${ver}.zip`
     )
   } else {
     res.status(404).send({ message: 'Package not found.' })
