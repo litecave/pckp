@@ -1,4 +1,4 @@
-# spwn-pkg
+# pckp
 A package manager for [SPWN](https://github.com/Spu7Nix/SPWN-language).  
 Currently in development.
 
