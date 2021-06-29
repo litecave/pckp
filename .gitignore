@@ -3,3 +3,4 @@ server/package-lock.json
 server/node_modules
 server/packages
 server/packages.json
+server/users.txt

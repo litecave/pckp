@@ -14,14 +14,14 @@ class DB {
     } catch {}
 
     this._path = path
-    try {
-      this._json = JSON.parse(json)
-    } catch {
-      this._json = {}
-      this._write_()
-    }
     this._enc = enc
     this._key = key
+
+    try {
+      this._json = JSON.parse(json)
+    } catch(e) {
+      this.clear()
+    }
   }
 
   _write() {
