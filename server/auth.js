@@ -15,7 +15,7 @@ async function get_user(token, key) {
 }
 
 function check_pass(user, pass, db) {
-  const hash = createHash('sha256').update(pass).digest('hex')
+  const hash = hash_pass(pass)
   return hash == db.get_key(`users/${user}/pass`)
 }
 

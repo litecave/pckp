@@ -1,0 +1,10 @@
+Usage: pckp [subcommand] [other arguments]
+
+Package manager for SPWN.
+
+Subcommands:
+help, -h: Help.
+version, -v. --version: Version of pckp.
+install [package]: Installs a package.
+register [user] [password]: Registers a new account.
+login [user] [password]: Login into an account.
