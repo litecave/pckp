@@ -6,4 +6,4 @@ Currently in development.
 - [ ] make a frontend
 - [ ] make a cli
 - [ ] api docs
-- [ ] add accounts
+- [x] add accounts
