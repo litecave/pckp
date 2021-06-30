@@ -67,7 +67,7 @@ Publishes a new package.
 **example**:  
   ```json
   data: {
-    "lib.spwn": "test = import \"test.spwn\"\ntest.print('Hello from package!')",
+    "lib.spwn": "test = import 'test.spwn'\ntest.print('Hello from package!')",
     "test.spwn": "print = (string: @string) {\n  $.print(string)\n}\n\nreturn  {\n  print\n}"
   }
   ```  
