@@ -1,8 +1,8 @@
 from appdirs import user_data_dir
-from zipfile import ZipFile
 from shutil import rmtree
 from pathlib import Path
 from sys import exit
+import tarfile
 import requests
 import os
 import re
@@ -39,7 +39,7 @@ def install(package, url):
     if '-' in package:
         pkg_name = package.split('-')[0]
 
-    filename = re.findall('filename=(.+)', req.headers['content-disposition'])[0].replace('.zip', '')
+    filename = re.findall('filename=(.+)', req.headers['content-disposition'])[0].replace('.tar', '')
     path = Path(f'libraries/{pkg_name}')
 
     if os.path.exists(path):
@@ -51,13 +51,13 @@ def install(package, url):
     except FileNotFoundError:
         err('libraries folder not found in current working directory.')
 
-    with open((path / 'package.zip'), 'wb') as f:
+    with open((path / 'package.tar'), 'wb') as f:
         f.write(req.content)
 
-    with ZipFile((path / 'package.zip'), 'r') as zip_obj:
-        zip_obj.extractall(f'libraries/{pkg_name}')
+    with tarfile.open((path / 'package.tar'), 'r') as tar:
+        tar.extractall(f'libraries/{pkg_name}')
 
-    os.remove((path / 'package.zip'))
+    os.remove((path / 'package.tar'))
     success(f"{filename} installed successfully.")
 
 def uninstall(package):

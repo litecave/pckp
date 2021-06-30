@@ -110,7 +110,7 @@ app.get('/api/package/:pkg/download', (req, res) => {
     }
 
     res.status(200).download(
-      `${__dirname}/packages/${name}/${ver}.zip`, `${name}-${ver}.zip`
+      `${__dirname}/packages/${name}/${ver}.tar`, `${name}-${ver}.tar`
     )
   } else {
     res.status(404).send({ message: 'Package not found.' })

@@ -2,10 +2,8 @@ const archiver = require('archiver')
 const { createWriteStream } = require('fs')
 
 function make_pkg(data, name, ver) {
-  const archive = archiver('zip', {
-    zlib: { level: 9 }
-  })
-  const output = createWriteStream(`${__dirname}/packages/${name}/${ver}.zip`)
+  const archive = archiver('tar')
+  const output = createWriteStream(`${__dirname}/packages/${name}/${ver}.tar`)
   archive.pipe(output)
   for (const fn in data) {
     if (typeof fn == 'string') {
