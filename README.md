@@ -1,6 +1,7 @@
 # pckp
 A package manager for [SPWN](https://github.com/Spu7Nix/SPWN-language).  
 Currently in development.
+please dont use my cli use [krista-chan's](https://github.com/krista-chan/pckp-client)
 
 # Api docs
 Api docs is located in [DOCS.md](https://github.com/sertdfyguhi/pckp/blob/master/DOCS.md).
