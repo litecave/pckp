@@ -1,4 +1,5 @@
 from zipfile import ZipFile
+from shutil import rmtree
 from pathlib import Path
 import requests
 import sys
@@ -44,7 +45,7 @@ elif args[0] == 'install':
     if '-' in args[1]:
         pkg_name = args[1].split('-')[0]
 
-    filename = re.findall('filename=(.+)', req.headers['content-disposition'])[0]
+    filename = re.findall('filename=(.+)', req.headers['content-disposition'])[0].replace('.zip', '')
 
     try:
         Path(f'libraries/{pkg_name}').mkdir(exist_ok=True)
@@ -59,6 +60,18 @@ elif args[0] == 'install':
 
     os.remove(f'libraries/{pkg_name}/package.zip')
     success(f"{filename} installed successfully.")
+elif args[0] == 'uninstall':
+    try:
+        rmtree(f'libraries/{args[1]}')
+    except Exception as e:
+        if isinstance(e, FileNotFoundError):
+            err(f'{args[1]} is not installed.')
+        elif isinstance(e, IndexError):
+            err(f'Package argument not supplied.')
+        else:
+            err(e)
+
+    success(f'{args[1]} successfully uninstalled.')
 else:
-    print('ERROR: Invalid subcommand.')
+    print(f"ERROR: Invalid subcommand '{args[0]}'.")
     print(HELP)
