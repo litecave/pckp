@@ -1,5 +1,5 @@
 # Api docs
-pckp's JSON api.
+pckp's JSON api docs.
 
 ## GET `/api/package/<package>`
 Gets package info.
@@ -67,7 +67,7 @@ Publishes a new package.
 **example**:  
   ```json
   data: {
-    "lib.spwn": "test = import "test.spwn"\ntest.print('Hello from package!')",
+    "lib.spwn": "test = import \"test.spwn\"\ntest.print('Hello from package!')",
     "test.spwn": "print = (string: @string) {\n  $.print(string)\n}\n\nreturn  {\n  print\n}"
   }
   ```  
