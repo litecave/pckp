@@ -49,7 +49,7 @@ app.post('/api/publish', (req, res) => {
       }
 
       try {
-        const user = sp(auth.get_user)(token, process.env.KEY)
+        const user = sp(auth.get_user)(token, process.env.KEY).payload.user
         if (user in users.get_key('users')) {
           comb['author'] = user
         } else {

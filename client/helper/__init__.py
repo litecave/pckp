@@ -23,7 +23,9 @@ def set_token(tok):
         f.close()
 
 def get_token():
-    with open((TOK_PATH / 'token.txt'), 'w+') as f:
+    if not os.path.exists((TOK_PATH / 'token.txt')):
+        err('You are not logged in.')
+    with open((TOK_PATH / 'token.txt'), 'r') as f:
         return f.read()
 
 def install(package, url):
@@ -37,19 +39,24 @@ def install(package, url):
         pkg_name = package.split('-')[0]
 
     filename = re.findall('filename=(.+)', req.headers['content-disposition'])[0].replace('.zip', '')
+    path = Path(f'libraries/{pkg_name}')
+
+    if os.path.exists(path):
+        rmtree(path)
+        os.mkdir(path)
 
     try:
-        Path(f'libraries/{pkg_name}').mkdir(exist_ok=True)
+        path.mkdir(exist_ok=True)
     except FileNotFoundError:
         err('libraries folder not found in current working directory.')
 
-    with open(f'libraries/{pkg_name}/package.zip', 'wb') as f:
+    with open((path / 'package.zip'), 'wb') as f:
         f.write(req.content)
 
-    with ZipFile(f'libraries/{pkg_name}/package.zip', 'r') as zip_obj:
+    with ZipFile((path / 'package.zip'), 'r') as zip_obj:
         zip_obj.extractall(f'libraries/{pkg_name}')
 
-    os.remove(f'libraries/{pkg_name}/package.zip')
+    os.remove((path / 'package.zip'))
     success(f"{filename} installed successfully.")
 
 def uninstall(package):
@@ -71,6 +78,21 @@ def register(user, password, url):
     if req.status_code != 200:
         err(req.json()['message'])
 
-    json = req.json()
-    set_token(json['token'])
-    success(json['message'])
+    res = req.json()
+    set_token(res['token'])
+    success(res['message'])
+
+def publish(json, url):
+    files = { f: open(f, 'r').read() for f in os.listdir() if os.path.isfile(f) }
+    json['data'] = files
+    json['token'] = get_token()
+
+    if 'long_desc' in json and os.path.exists(json['long_desc']):
+        json['long_desc'] = open(json['long_desc'], 'r').read()
+
+    req = requests.post(url, json=json)
+    res = req.json()
+    if req.status_code != 200:
+        err(res['message'])
+
+    success(res['message'])

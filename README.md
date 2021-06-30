@@ -13,8 +13,9 @@ Api docs is located in [DOCS.md](https://github.com/sertdfyguhi/pckp/blob/master
 5. The server should be running on `localhost:5000`.
 
 # Todo
-- [ ] buy `pckp.xyz` and use it to host the api and frontend
+- [x] make a cli
+- [ ] add dependencies for packages
 - [ ] make a frontend
-- [ ] make a cli
+- [ ] buy `pckp.xyz` and use it to host the api and frontend
 - [ ] api docs
 - [x] add accounts

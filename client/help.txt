@@ -9,4 +9,4 @@ Subcommands:
   uninstall [package]              Uninstalls a package.
   register [user] [password]       Registers a new account.
   login [user] [password]          Login into an account.
-  publish [package]                Publishes a package.
+  publish                          Publishes a package.
