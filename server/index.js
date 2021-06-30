@@ -11,6 +11,7 @@ const allowed_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234
 const allow_chars_usr = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_'
 // users.set_key('users', {})
 console.log(users.get_key('users'))
+console.log(pkg.get_key('packages'))
 
 app.use(express.json())
 
@@ -25,7 +26,7 @@ app.get('/api/package/:pkg', (req, res) => {
 app.post('/api/publish', (req, res) => {
   if (req.body.token == (pkg.get_key(`packages/${req.body.name}/token`) || req.body.token)) {
     if (
-        req.body.version in (pkg.get_key(`packages/${req.body.name}/versions`) || [])
+        (pkg.get_key(`packages/${req.body.name}/versions`) || [req.body.version]).includes(req.body.version)
       ) {
       const name = req.body.name,
         desc = req.body.desc,
@@ -47,6 +48,10 @@ app.post('/api/publish', (req, res) => {
       } catch {
         res.status(404).send({ message: 'Token is invalid.' })
       }
+
+      if (!name.split('').every(c => allow_chars_usr.includes(c))) {
+        res.status(403).send({ message: 'Package name must only include the alphabet and _.' })
+        return }
 
       if (Object.values(comb).some(val => val === undefined)) {
         res.status(422).send({ message: 'Some data is undefined.' })
@@ -83,15 +88,12 @@ app.post('/api/publish', (req, res) => {
 
 app.get('/api/package/:pkg/download', (req, res) => {
   const name = req.params.pkg.split('-')[0]
-  const ver = req.params.pkg.split('-')[1]
-
-  if (!ver) {
-    res.status(422).send({ message: 'Version undefined.' })
-    return
-  }
   
   if (name in pkg.get_key('packages')) {
-    if (!pkg.get_key(`packages/${name}/versions`).includes(ver)) {
+    const versions = pkg.get_key(`packages/${name}/versions`)
+    const ver = req.params.pkg.split('-')[1] || versions[versions.length - 1]
+
+    if (!versions.includes(ver)) {
       res.status(404).send('Version not found.')
       return
     }

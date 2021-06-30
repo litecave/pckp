@@ -4,3 +4,4 @@ server/node_modules
 server/packages
 server/packages.json
 server/users.txt
+client/libraries
