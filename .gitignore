@@ -4,5 +4,5 @@ server/node_modules
 server/packages
 server/packages.json
 server/users.txt
-client/libraries
-client/helper/__pycache__
+cli/libraries
+cli/helper/__pycache__
