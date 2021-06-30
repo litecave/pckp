@@ -11,7 +11,7 @@ URLS = {
     "REGISTER": f"{URL}/api/users/register",
     "LOGIN": f"{URL}/api/users/login"
 }
-# HELP = open('help.txt', 'r').read()
+HELP = open('help.txt', 'r').read()
 VERSION = '0.1'
 args = sys.argv[1:]
 
