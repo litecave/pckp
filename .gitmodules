@@ -1,0 +1,3 @@
+[submodule "pckp-client"]
+	path = pckp-client
+	url = https://github.com/krista-chan/pckp-client
