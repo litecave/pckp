@@ -5,3 +5,4 @@ server/packages
 server/packages.json
 server/users.txt
 client/libraries
+client/helper/__pycache__
