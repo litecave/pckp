@@ -6,7 +6,7 @@ URLS = {
     "INSTALL": f"{URL}/api/package/{{0}}/download",
     "PKG_INFO": "",
     "PUBLISH": "",
-    "REGISTER": "",
+    "REGISTER": f"{URL}/api/users/register",
     "LOGIN": ""
 }
 HELP = open('help.txt', 'r').read()
@@ -14,7 +14,7 @@ VERSION = '0.1'
 args = sys.argv[1:]
 
 def err(message):
-    print(f'ERROR: {message}')
+    print(f'\u001b[31mERROR: {message}\u001b[0m')
     exit()
 
 if args == [] or args[0] == 'help' or args[0] == '-h':
@@ -30,6 +30,9 @@ elif args[0] == 'install':
     helper.install(args[1], url)
 elif args[0] == 'uninstall':
     helper.uninstall(args[1] if len(args) > 1 else err('Package argument not supplied.'))
+elif args[0] == 'register':
+    if len(args) < 3:
+        err('User or password argument not supplied.')
+    helper.register(args[1], args[2], URLS['REGISTER'])
 else:
-    print(f"ERROR: Invalid subcommand '{args[0]}'.")
-    print(HELP)
+    err(f"Invalid subcommand '{args[0]}'")

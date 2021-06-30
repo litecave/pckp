@@ -121,6 +121,20 @@ app.post('/api/users/register', (req, res) => {
     if (user in users.get_key('users')) {
       res.status(409).send({ message: 'User already exists.' })
       return }
+
+    if (user.length < 1 || user.length > 25) {
+      res.status(403).send({ message: 'Username must be at least 1 characters and at most 25 characters.' })
+      return }
+    if (!user.split('').every(c => allow_chars_usr.includes(c))) {
+      res.status(403).send({ message: 'Username must only include the alphabet and _.' })
+      return }
+
+    if (pass.length < 3 || pass.length > 30) {
+      res.status(403).send({ message: 'Password must be at least 3 characters and at most 30 characters.' })
+      return }
+    if (!pass.split('').every(c => allowed_chars.includes(c))) {
+      res.status(403).send({ message: 'Password must only include the alphabet, digits and _.' })
+      return }
     
     users.set_key(`users/${user}`, { pass: auth.hash_pass(pass) })
     auth.create_token(user, process.env.KEY)
@@ -138,20 +152,6 @@ app.post('/api/users/login', (req, res) => {
 
   if (user && pass) {
     if (user in users.get_key('users')) {
-      if (pass.length < 1 || pass.length > 25) {
-        res.status(403).send({ message: 'Username must be at least 1 characters and at most 25 characters.' })
-        return }
-      if (!pass.split('').every(c => allow_chars_usr.includes(c))) {
-        res.status(403).send({ message: 'Username must only include the alphabet and _.' })
-        return }
-
-      if (pass.length < 3 || pass.length > 30) {
-        res.status(403).send({ message: 'Password must be at least 3 characters and at most 30 characters.' })
-        return }
-      if (!pass.split('').every(c => allowed_chars.includes(c))) {
-        res.status(403).send({ message: 'Password must only include the alphabet, digits and _.' })
-        return }
-
       const check_pass = auth.check_pass(user, pass, users)
       
       if (check_pass) {
