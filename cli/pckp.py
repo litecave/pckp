@@ -29,7 +29,7 @@ args = sys.argv[1:]
 
 def err(message):
     print(f'\u001b[31mERROR: {message}\u001b[0m')
-    exit()
+    sys.exit()
 
 if args == [] or args[0] == 'help' or args[0] == '-h':
     print(HELP)

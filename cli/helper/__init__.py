@@ -2,6 +2,7 @@ from appdirs import user_data_dir
 from zipfile import ZipFile
 from shutil import rmtree
 from pathlib import Path
+from sys import exit
 import requests
 import os
 import re
