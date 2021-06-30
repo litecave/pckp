@@ -17,7 +17,9 @@ app.use(express.json())
 
 app.get('/api/package/:pkg', (req, res) => {
   if (req.params.pkg in pkg.get_key('packages')) {
-    res.status(200).send(pkg.get_key(`packages/${req.params.pkg}`))
+    let data = pkg.get_key(`packages/${req.params.pkg}`)
+    delete data.token
+    res.status(200).send(data)
   } else {
     res.status(404).send({ message: 'Package not found.' })
   }
