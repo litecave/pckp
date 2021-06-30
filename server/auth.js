@@ -2,7 +2,7 @@ const { SignJWT } = require('jose/jwt/sign')
 const { jwtVerify } = require('jose/jwt/verify')
 const { createSecretKey, createHash } = require('crypto')
 
-async function create_token(user, key) {
+function create_token(user, key) {
   const jwt = new SignJWT({ user: user })
     .setProtectedHeader({ alg: 'HS256' })
     .sign(createSecretKey(key))
@@ -10,7 +10,7 @@ async function create_token(user, key) {
   return jwt
 }
 
-async function get_user(token, key) {
+function get_user(token, key) {
   return jwtVerify(token, createSecretKey(key))
 }
 

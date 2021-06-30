@@ -1,5 +1,6 @@
 const express = require('express')
 const fs = require('fs')
+const sp = require('synchronized-promise')
 const { make_pkg } = require('./pkg')
 const { DB } = require('./db')
 const auth = require('./auth')
@@ -29,7 +30,7 @@ app.get('/api/package/:pkg', (req, res) => {
 app.post('/api/publish', (req, res) => {
   if (req.body.token == (pkg.get_key(`packages/${req.body.name}/token`) || req.body.token)) {
     if (
-        (pkg.get_key(`packages/${req.body.name}/versions`) || [req.body.version]).includes(req.body.version)
+        !(pkg.get_key(`packages/${req.body.name}/versions`) || []).includes(req.body.version)
       ) {
       const name = req.body.name,
         desc = req.body.desc,
@@ -48,12 +49,15 @@ app.post('/api/publish', (req, res) => {
       }
 
       try {
-        auth.get_user(token, process.env.KEY)
-          .then(user => {
-            comb['author'] = user.payload.user
-          })
+        const user = sp(auth.get_user)(token, process.env.KEY)
+        if (user in users.get_key('users')) {
+          comb['author'] = user
+        } else {
+          throw ''
+        }
       } catch {
         res.status(404).send({ message: 'Token is invalid.' })
+        return
       }
 
       if (!name.split('').every(c => allow_chars_usr.includes(c))) {
