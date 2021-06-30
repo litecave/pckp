@@ -3,7 +3,7 @@ from json import loads, JSONDecodeError
 import helper
 import sys
 
-URL = 'http://127.0.0.1:5000'
+URL = 'https://7bfbd4bbb12a.ngrok.io'
 URLS = {
     "INSTALL": f"{URL}/api/package/{{0}}/download",
     "PKG_INFO": "",
@@ -11,8 +11,20 @@ URLS = {
     "REGISTER": f"{URL}/api/users/register",
     "LOGIN": f"{URL}/api/users/login"
 }
-HELP = open('help.txt', 'r').read()
-VERSION = '0.1'
+HELP = '''
+Usage: pckp [subcommand] [other arguments]
+
+Package manager for SPWN.
+
+Subcommands:
+  help, -h                         Help.
+  version, -v                      Version of pckp.
+  install [package]                Installs a package.
+  uninstall [package]              Uninstalls a package.
+  register [user] [password]       Registers a new account.
+  login [user] [password]          Login into an account.
+  publish                          Publishes a package.'''[1:]
+VERSION = '1.0.0'
 args = sys.argv[1:]
 
 def err(message):

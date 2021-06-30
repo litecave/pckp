@@ -6,3 +6,8 @@ server/packages.json
 server/users.txt
 cli/libraries
 cli/helper/__pycache__
+cli/dist
+cli/build
+cli/__pycache__
+cli/pckp.spec
+cli/compile.sh
