@@ -17,5 +17,5 @@ Api docs is located in [DOCS.md](https://github.com/sertdfyguhi/pckp/blob/master
 - [ ] add dependencies for packages
 - [ ] make a frontend
 - [ ] buy `pckp.xyz` and use it to host the api and frontend
-- [ ] api docs
+- [x] api docs
 - [x] add accounts
