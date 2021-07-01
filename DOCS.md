@@ -62,15 +62,8 @@ Publishes a new package.
 - token*: Token of account.  
 ***type***: `string`
 
-- data: Data of package.   
-***type***: `string`   
-**example**:  
-  ```json
-  data: {
-    "lib.spwn": "test = import 'test.spwn'\ntest.print('Hello from package!')",
-    "test.spwn": "print = (string: @string) {\n  $.print(string)\n}\n\nreturn  {\n  print\n}"
-  }
-  ```  
+- data: Tar file encoded using base64.   
+***type***: `string`
 
 ### Response
 - message: Response message.  

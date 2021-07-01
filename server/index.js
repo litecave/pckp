@@ -41,11 +41,15 @@ app.get('/api/search', (req, res) => {
       query, 
       packages
     )
-    const resp = pkg.get_key(`packages/${best_match.bestMatch.target}`)
-    res.status(200).send({
-      name: resp.name, 
-      version: resp.versions[resp.versions.length - 1],
-      author: resp.author })
+    const matches = best_match.ratings.sort((a, b) => {
+      return a.rating + b.rating
+    }).filter(rating => rating.rating > 0.6)
+      .map(rating => {
+        let resp = pkg.get_key(`packages/${rating.target}`)
+        return { name: resp.name, 
+          version: resp.versions[resp.versions.length - 1],
+          author: resp.author } })
+    res.status(200).send(matches)
   } else {
     res.status(422).send({ message: 'Search query not provided.' })
   }
