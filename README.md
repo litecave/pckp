@@ -6,6 +6,7 @@ Currently in development.
 Api docs is located in [DOCS.md](https://github.com/sertdfyguhi/pckp/blob/master/DOCS.md).
 
 # How to start server
+Temporary server at (https://c1634749f2e2.ngrok.io)[https://c1634749f2e2.ngrok.io]
 1. Download source code from the repository or run `git clone https://github.com/sertdfyguhi/pckp.git` if you have git installed.
 2. Install node if you haven't already.
 3. `cd` into `server`.
