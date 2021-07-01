@@ -2,7 +2,7 @@ server/package.json
 server/package-lock.json
 server/node_modules
 server/packages
-server/packages.json
+server/packages.txt
 server/users.txt
 cli/libraries
 cli/helper/__pycache__

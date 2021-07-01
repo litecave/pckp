@@ -1,17 +1,19 @@
 const express = require('express')
 const fs = require('fs')
 const sp = require('synchronized-promise')
+const ss = require('string-similarity')
 const { make_pkg } = require('./pkg')
 const { DB } = require('./db')
 const auth = require('./auth')
 
 const app = express()
-const pkg = new DB('./packages.json')
+const pkg = new DB('./packages.txt', true, process.env.KEY)
 const users = new DB('./users.txt', true, process.env.KEY)
 const allowed_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_'
 const allow_chars_usr = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_'
 const forbbiden_pkg_names = ['std', 'gamescene']
 // users.set_key('users', {})
+// pkg.set_key('packages', {})
 console.log(users.get_key('users'))
 console.log(pkg.get_key('packages'))
 
@@ -24,6 +26,28 @@ app.get('/api/package/:pkg', (req, res) => {
     res.status(200).send(data)
   } else {
     res.status(404).send({ message: 'Package not found.' })
+  }
+})
+
+app.get('/api/search', (req, res) => {
+  const query = req.query.q
+  if (query) {
+    const packages = Object.keys(pkg.get_key('packages'))
+    if (packages.length == 0) {
+      res.status(404).send({ message: 'No packages found.' })
+      return } 
+
+    const best_match = ss.findBestMatch(
+      query, 
+      packages
+    )
+    const resp = pkg.get_key(`packages/${best_match.bestMatch.target}`)
+    res.status(200).send({
+      name: resp.name, 
+      version: resp.versions[resp.versions.length - 1],
+      author: resp.author })
+  } else {
+    res.status(422).send({ message: 'Search query not provided.' })
   }
 })
 

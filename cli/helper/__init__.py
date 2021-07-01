@@ -1,4 +1,5 @@
 from appdirs import user_data_dir
+from prettytable import PrettyTable, MSWORD_FRIENDLY
 from shutil import rmtree
 from pathlib import Path
 from sys import exit
@@ -97,3 +98,16 @@ def publish(json, url):
         err(res['message'])
 
     success(res['message'])
+
+def search(package, url):
+    req = requests.get(url, { 'q': package })
+    res = req.json()
+
+    if req.status_code != 200:
+        err(res['message'])
+
+    table = PrettyTable(res.keys())
+    table.add_row(res.values())
+    table.set_style(MSWORD_FRIENDLY)
+    print(table)
+    exit()

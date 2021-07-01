@@ -3,16 +3,16 @@ from json import loads, JSONDecodeError
 import helper
 import sys
 
-URL = 'https://7bfbd4bbb12a.ngrok.io'
+URL = 'https://c1634749f2e2.ngrok.io'
 URLS = {
     "INSTALL": f"{URL}/api/package/{{0}}/download",
     "PKG_INFO": f"{URL}/api/package/{{0}}",
     "PUBLISH": f"{URL}/api/publish",
     "REGISTER": f"{URL}/api/users/register",
-    "LOGIN": f"{URL}/api/users/login"
+    "LOGIN": f"{URL}/api/users/login",
+    "SEARCH": f"{URL}/api/search"
 }
-HELP = '''
-Usage: pckp [subcommand] [other arguments]
+HELP = '''Usage: pckp [subcommand] [other arguments]
 
 Package manager for SPWN.
 
@@ -23,7 +23,8 @@ Subcommands:
   uninstall [package]              Uninstalls a package.
   register [user] [password]       Registers a new account.
   login [user] [password]          Login into an account.
-  publish                          Publishes a package.'''[1:]
+  publish                          Publishes a package.
+  search [package]                 Searches for packages.'''
 VERSION = '1.0.0'
 args = sys.argv[1:]
 
@@ -62,5 +63,9 @@ elif args[0] == 'publish':
             err('Invalid JSON in package.json')
 
         helper.publish(json, URLS['PUBLISH'])
+elif args[0] == 'search':
+    if len(args) < 2:
+        err('Package argument not supplied.')
+    helper.search(args[1], URLS['SEARCH'])
 else:
     err(f"Invalid subcommand '{args[0]}'")
