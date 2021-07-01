@@ -93,7 +93,7 @@ app.post('/api/publish', (req, res) => {
         return }
 
       if (Object.values(comb).some(val => val === undefined)) {
-        res.status(422).send({ message: 'Some data is undefined.' })
+        res.status(422).send({ message: 'Some required fields are not provided.' })
         return
       }
 
@@ -174,7 +174,7 @@ app.post('/api/users/register', (req, res) => {
         res.status(200).send({ message: 'User registered successfully!', token: jwt })
       })
   } else {
-    res.status(422).send({ message: 'User or password is undefined.' })
+    res.status(422).send({ message: 'User or password is not provided.' })
   }
 })
 
@@ -192,14 +192,14 @@ app.post('/api/users/login', (req, res) => {
             res.status(200).send({ message: 'Login successful.', token: jwt })
           })
       } else {
-        res.status(403).send({ message: 'User or password incorrect.' })
+        res.status(403).send({ message: 'Incorrect username or password.' })
       }
     } else {
-      res.status(403).send({ message: 'User or password incorrect.' })
+      res.status(403).send({ message: 'Incorrect username or password.' })
     }
   } else {
-    res.status(422).send({ message: 'User or password is undefined.' })
+    res.status(422).send({ message: 'User or password is not provided.' })
   }
 })
 
-app.listen(5000, console.log('Listening on post 5000'))
+app.listen(5000, console.log('Listening on port 5000'))
