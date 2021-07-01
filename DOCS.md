@@ -27,13 +27,13 @@ Gets package info.
 `/api/package/test`
 
 ## GET `/api/package/<package>/download`
-Downloads the package in a .zip file.
+Downloads the package in a .tar file.
 
 ### Params
 - package: Package name.
 
 ### Response
-Responds with a .zip file of the package.
+Responds with a .tar file of the package.
 
 ### Example
 `/api/package/test/download`
