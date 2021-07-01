@@ -6,7 +6,7 @@ import sys
 URL = 'https://7bfbd4bbb12a.ngrok.io'
 URLS = {
     "INSTALL": f"{URL}/api/package/{{0}}/download",
-    "PKG_INFO": "",
+    "PKG_INFO": f"{URL}/api/package/{{0}}",
     "PUBLISH": f"{URL}/api/publish",
     "REGISTER": f"{URL}/api/users/register",
     "LOGIN": f"{URL}/api/users/login"
