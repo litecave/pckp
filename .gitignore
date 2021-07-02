@@ -1,5 +1,3 @@
-server/package.json
-server/package-lock.json
 server/node_modules
 server/packages
 server/packages.txt

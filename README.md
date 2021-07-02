@@ -7,15 +7,17 @@ Api docs is located in [DOCS.md](https://github.com/sertdfyguhi/pckp/blob/master
 
 # How to start server
 Temporary server at https://c1634749f2e2.ngrok.io/
-1. Download source code from the repository or run `git clone https://github.com/sertdfyguhi/pckp.git` if you have git installed.
-2. Install node if you haven't already.
-3. `cd` into `server`.
-4. Run `node .`.
-5. The server should be running on `localhost:5000`.
+1. Download source code from the repository or run `git clone https://github.com/sertdfyguhi/pckp.git` if you have git installed
+2. Install node if you haven't already
+3. `cd` into `server`
+4. Run `npm install`
+5. Run `node .`
+6. The server should be running on `localhost:5000`
 
 # Todo
 - [x] make a cli
 - [ ] add dependencies for packages
+- [ ] add package generator
 - [ ] make a frontend
 - [ ] buy `pckp.xyz` and use it to host the api and frontend
 - [x] api docs
