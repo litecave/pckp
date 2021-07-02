@@ -159,7 +159,7 @@ def search(package, url):
     if req.status_code != 200:
         err(res['message'])
 
-    table = PrettyTable([ 'name', 'version', 'author' ])
+    table = PrettyTable([ 'Name', 'Version', 'Author' ])
     for rating in res:
         table.add_row(rating.values())
     table.set_style(MSWORD_FRIENDLY)

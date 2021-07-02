@@ -112,3 +112,21 @@ Responds with a JWT token.
 
 ### Example
 `/api/users/login`
+
+## GET `/api/search`
+Searches for packages.
+
+### Query
+- q: Search query.
+
+### Response
+Array of similar packages.
+- name: Name of package.  
+***type***: `string`
+- version: Latest version of package.  
+***type***: `string`
+- author: Author of the package.
+***type***: `string`
+
+### Example
+`/api/search?q=test`
