@@ -61,7 +61,7 @@ def install(package, url, message=True):
 
     os.remove((path / 'package.tar'))
 
-    with open((path / 'package.json'), 'r') as f:
+    with open((path / 'pckp.json'), 'r') as f:
         c_json = json.loads(f.read())
 
         if 'dependencies' in c_json:
@@ -69,16 +69,16 @@ def install(package, url, message=True):
                 install(f"{dep_pkg}-{c_json['dependencies'][dep_pkg]}", url, False)
 
     if message:
-        if not os.path.exists('package.json'):
-            with open('package.json', 'w') as f:
+        if not os.path.exists('pckp.json'):
+            with open('pckp.json', 'w') as f:
                 f.write('{}')
                 f.close()
 
-        with open('package.json', 'r+') as f:
+        with open('pckp.json', 'r+') as f:
             try:
                 c_json = json.loads(f.read())
             except json.JSONDecodeError:
-                err('Invalid JSON in package.json')
+                err('Invalid JSON in pckp.json')
 
             f.seek(0)
 
@@ -102,12 +102,12 @@ def uninstall(package):
     except FileNotFoundError:
         err(f'{package} is not installed.')
 
-    if os.path.exists('package.json'):
-        with open('package.json', 'r+') as f:
+    if os.path.exists('pckp.json'):
+        with open('pckp.json', 'r+') as f:
             try:
                 c_json = json.loads(f.read())
             except json.JSONDecodeError:
-                err('Invalid JSON in package.json')
+                err('Invalid JSON in pckp.json')
 
             f.seek(0)
 
@@ -116,7 +116,7 @@ def uninstall(package):
             f.write(json.dumps(c_json, sort_keys=False, indent=2))
             f.close()
     else:
-        with open('package.json', 'w') as f:
+        with open('pckp.json', 'w') as f:
             f.write(json.dumps({ "dependencies": {} }, sort_keys=False, indent=2))
             f.close()
 

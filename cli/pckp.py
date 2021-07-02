@@ -52,13 +52,13 @@ elif args[0] == 'login':
         err('User or password argument not supplied.')
     helper.register(args[1], args[2], URLS['LOGIN'])
 elif args[0] == 'publish':
-    if not exists('package.json'):
-        err('package.json does not exist in current working directory.')
-    with open('package.json', 'r') as f:
+    if not exists('pckp.json'):
+        err('pckp.json does not exist in current working directory.')
+    with open('pckp.json', 'r') as f:
         try:
             json = loads(f.read())
         except JSONDecodeError:
-            err('Invalid JSON in package.json')
+            err('Invalid JSON in pckp.json')
 
         helper.publish(json, URLS['PUBLISH'])
 elif args[0] == 'search':
