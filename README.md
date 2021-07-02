@@ -25,7 +25,7 @@ Temporary server at https://c1634749f2e2.ngrok.io/
 
 # Todo
 - [x] make a cli
-- [ ] add dependencies for packages
+- [x] add dependencies for packages
 - [ ] add package generator
 - [ ] make a frontend
 - [ ] buy `pckp.xyz` and use it to host the api and frontend
