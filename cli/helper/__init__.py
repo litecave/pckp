@@ -97,9 +97,9 @@ def install(package, url, message=True):
         success(f"{filename} installed successfully.")
 
 def uninstall(package):
-    try:
+    if os.path.exists(f'libraries/{package}'):
         rmtree(f'libraries/{package}')
-    except FileNotFoundError:
+    else:
         err(f'{package} is not installed.')
 
     if os.path.exists('pckp.json'):
@@ -111,7 +111,7 @@ def uninstall(package):
 
             f.seek(0)
 
-            del c_json[package]
+            del c_json['dependencies'][package]
 
             f.write(json.dumps(c_json, sort_keys=False, indent=2))
             f.close()

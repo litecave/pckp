@@ -3,7 +3,5 @@
   "desc": "Test package.",
   "long_desc": "long_desc.md",
   "version": "1.1.0",
-  "dependencies": {
-    "test_two": "1.0.0"
-  }
+  "dependencies": {}
 }

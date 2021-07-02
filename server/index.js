@@ -133,7 +133,7 @@ app.get('/api/package/:pkg/download', (req, res) => {
     const ver = req.params.pkg.split('-')[1] || versions[versions.length - 1]
 
     if (!versions.includes(ver)) {
-      res.status(404).send('Version not found.')
+      res.status(404).send({ message: 'Version not found.' })
       return
     }
 
