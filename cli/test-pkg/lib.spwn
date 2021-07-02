@@ -1,4 +1,0 @@
-input = (prompt: @string) {
-  $.print(prompt)
-  return $.get_input()
-}

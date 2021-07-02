@@ -5,6 +5,7 @@ from pathlib import Path
 from sys import exit
 import tarfile
 import requests
+import json
 import os
 import re
 
@@ -30,8 +31,8 @@ def get_token():
     with open((TOK_PATH / 'token.txt'), 'r') as f:
         return f.read()
 
-def install(package, url):
-    req = requests.get(url)
+def install(package, url, message=True):
+    req = requests.get(url.format(package))
 
     if req.status_code != 200:
         err(req.json()['message'])
@@ -40,7 +41,7 @@ def install(package, url):
     if '-' in package:
         pkg_name = package.split('-')[0]
 
-    filename = re.findall('filename=(.+)', req.headers['content-disposition'])[0].replace('.tar', '')
+    filename = re.findall('filename="(.+)"', req.headers['content-disposition'])[0].replace('.tar', '')
     path = Path(f'libraries/{pkg_name}')
 
     if os.path.exists(path):
@@ -59,13 +60,65 @@ def install(package, url):
         tar.extractall(f'libraries/{pkg_name}')
 
     os.remove((path / 'package.tar'))
-    success(f"{filename} installed successfully.")
+
+    with open((path / 'package.json'), 'r') as f:
+        c_json = json.loads(f.read())
+
+        if 'dependencies' in c_json:
+            for dep_pkg in c_json['dependencies']:
+                install(f"{dep_pkg}-{c_json['dependencies'][dep_pkg]}", url, False)
+
+    if message:
+        if not os.path.exists('package.json'):
+            with open('package.json', 'w') as f:
+                f.write('{}')
+                f.close()
+
+        with open('package.json', 'r+') as f:
+            try:
+                c_json = json.loads(f.read())
+            except json.JSONDecodeError:
+                err('Invalid JSON in package.json')
+
+            f.seek(0)
+
+            try:
+                c_json['dependencies'] = {
+                    **c_json['dependencies'],
+                    **{ pkg_name: filename.split('-')[1] }
+                }
+            except KeyError:
+                c_json['dependencies'] = { pkg_name: filename.split('-')[1] }
+
+            f.write(json.dumps(c_json, sort_keys=False, indent=2))
+            f.close()
+
+    if message:
+        success(f"{filename} installed successfully.")
 
 def uninstall(package):
     try:
         rmtree(f'libraries/{package}')
     except FileNotFoundError:
         err(f'{package} is not installed.')
+
+    if os.path.exists('package.json'):
+        with open('package.json', 'r+') as f:
+            try:
+                c_json = json.loads(f.read())
+            except json.JSONDecodeError:
+                err('Invalid JSON in package.json')
+
+            f.seek(0)
+
+            del c_json[package]
+
+            f.write(json.dumps(c_json, sort_keys=False, indent=2))
+            f.close()
+    else:
+        with open('package.json', 'w') as f:
+            f.write(json.dumps({ "dependencies": {} }, sort_keys=False, indent=2))
+            f.close()
 
     success(f'{package} successfully uninstalled.')
 

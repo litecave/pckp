@@ -37,12 +37,10 @@ if args == [] or args[0] == 'help' or args[0] == '-h':
 elif args[0] == 'version' or args[0] == '-v':
     print(VERSION)
 elif args[0] == 'install':
-    try:
-        url = URLS["INSTALL"].format(args[1])
-    except Exception:
+    if len(args) < 2:
         err('Package argument not supplied.')
 
-    helper.install(args[1], url)
+    helper.install(args[1], URLS["INSTALL"])
 elif args[0] == 'uninstall':
     helper.uninstall(args[1] if len(args) > 1 else err('Package argument not supplied.'))
 elif args[0] == 'register':

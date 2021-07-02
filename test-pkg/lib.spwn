@@ -1,0 +1,2 @@
+a = import test
+a.input('wow')

@@ -4,3 +4,4 @@ server/packages.txt
 server/users.txt
 cli/libraries
 cli/helper/__pycache__
+test-pkg/libraries

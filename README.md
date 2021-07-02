@@ -7,12 +7,21 @@ Api docs is located in [DOCS.md](https://github.com/sertdfyguhi/pckp/blob/master
 
 # How to start server
 Temporary server at https://c1634749f2e2.ngrok.io/
+
+## not manually (only on macos)
+1. Download [run_server.sh](https://github.com/sertdfyguhi/pckp/blob/master/run_server.sh)
+2. Run `chmod +x <run_server.sh path>`
+3. Run `run_server.sh`
+
+## Manually
 1. Download source code from the repository or run `git clone https://github.com/sertdfyguhi/pckp.git` if you have git installed
 2. Install node if you haven't already
 3. `cd` into `server`
 4. Run `npm install`
-5. Run `node .`
-6. The server should be running on `localhost:5000`
+5. Create file `packages.txt`, `users.txt`
+6. Create folder `packages`
+7. Run `node .`
+8. The server should be running on `localhost:5000`
 
 # Todo
 - [x] make a cli
