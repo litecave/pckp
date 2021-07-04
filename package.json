@@ -1,0 +1,15 @@
+{
+  "name": "pckp",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "worker: cd server;mkdir packages;touch packages.txt users.txt;node ."
+  },
+  "dependencies": {
+    "aes256": "^1.1.0",
+    "archiver": "^5.3.0",
+    "express": "^4.17.1",
+    "jose": "^3.13.0",
+    "string-similarity": "^4.0.4",
+    "synchronized-promise": "^0.3.1"
+  }
+}
