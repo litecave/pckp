@@ -12,8 +12,8 @@ const users = new DB('./users.txt', true, process.env.KEY)
 const allowed_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_'
 const allow_chars_usr = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_'
 const forbbiden_pkg_names = ['std', 'gamescene']
-users.set_key('users', {})
-pkg.set_key('packages', {})
+// users.set_key('users', {})
+// pkg.set_key('packages', {})
 console.log(users.get_key('users'))
 console.log(pkg.get_key('packages'))
 
