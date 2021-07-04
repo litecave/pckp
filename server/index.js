@@ -202,4 +202,4 @@ app.post('/api/users/login', (req, res) => {
   }
 })
 
-app.listen(5000, console.log('Listening on port 5000'))
+app.listen(process.env.PORT, console.log(`Listening on port ${process.env.PORT}`))
