@@ -1,24 +1,17 @@
-from appdirs import user_data_dir
 from prettytable import PrettyTable, MSWORD_FRIENDLY
+from .printing import loadingMessage, err, success
+from appdirs import user_data_dir
 from shutil import rmtree
 from pathlib import Path
 from sys import exit
-import tarfile
 import requests
+import tarfile
 import json
 import os
 import re
 
 TOK_PATH = Path(user_data_dir('pckp', 'sertdfyguhi'))
 TOK_PATH.mkdir(exist_ok=True, parents=True)
-
-def err(message):
-    print(f'\u001b[31mERROR: {message}\u001b[0m')
-    exit()
-
-def success(message):
-    print(f'\u001b[32mSUCCESS: {message}\u001b[0m')
-    exit()
 
 def set_token(tok):
     with open((TOK_PATH / 'token.txt'), 'w') as f:
