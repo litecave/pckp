@@ -2,8 +2,5 @@
   "name": "test",
   "desc": "Test package.",
   "long_desc": "long_desc.md",
-  "version": "1.0.0",
-  "dependencies": {
-    "test": "1.0.0"
-  }
+  "version": "1.0.0"
 }
