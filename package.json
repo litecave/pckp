@@ -2,7 +2,7 @@
   "name": "pckp",
   "version": "1.0.0",
   "scripts": {
-    "start": "worker: cd server;mkdir packages;touch packages.txt users.txt;node ."
+    "start": "cd server;mkdir packages;touch packages.txt users.txt;node ."
   },
   "dependencies": {
     "aes256": "^1.1.0",
