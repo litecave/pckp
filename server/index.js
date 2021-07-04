@@ -9,6 +9,7 @@ const auth = require('./auth')
 const app = express()
 const pkg = new DB('./packages.txt', true, process.env.KEY)
 const users = new DB('./users.txt', true, process.env.KEY)
+const PORT = process.env.PORT || 5000
 const allowed_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_'
 const allow_chars_usr = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_'
 const forbidden_pkg_names = ['std', 'gamescene']
@@ -202,4 +203,4 @@ app.post('/api/users/login', (req, res) => {
   }
 })
 
-app.listen(process.env.PORT, console.log(`Listening on port ${process.env.PORT}`))
+app.listen(PORT, console.log(`Listening on port ${PORT}`))
