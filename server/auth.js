@@ -20,7 +20,8 @@ function check_pass(user, pass, db) {
 }
 
 function hash_pass(pass) {
-  return createHash('sha256').update(pass.toString()).digest('hex')
+  console.log(pass)
+  return createHash('sha256').update(pass).digest('hex')
 }
 
 module.exports = {
