@@ -6,7 +6,7 @@ Currently in development.
 Api docs is located in [DOCS.md](https://github.com/sertdfyguhi/pckp/blob/master/DOCS.md).
 
 # How to start server
-Temporary server at https://c1634749f2e2.ngrok.io/
+Temporary server at https://pckp.herokuapp.com
 
 ## not manually (only on macos)
 1. Download [run_server.sh](https://github.com/sertdfyguhi/pckp/blob/master/run_server.sh)

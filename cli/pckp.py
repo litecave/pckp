@@ -3,7 +3,7 @@ from json import loads, JSONDecodeError
 import helper
 import sys
 
-URL = 'https://c1634749f2e2.ngrok.io'
+URL = 'https://pckp.herokuapp.com'
 URLS = {
     "INSTALL": f"{URL}/api/package/{{0}}/download",
     "PKG_INFO": f"{URL}/api/package/{{0}}",
