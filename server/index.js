@@ -11,7 +11,7 @@ const pkg = new DB('./packages.txt', true, process.env.KEY)
 const users = new DB('./users.txt', true, process.env.KEY)
 const allowed_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_'
 const allow_chars_usr = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_'
-const forbbiden_pkg_names = ['std', 'gamescene']
+const forbidden_pkg_names = ['std', 'gamescene']
 users.set_key('users', {})
 pkg.set_key('packages', {})
 console.log(users.get_key('users'))
@@ -72,8 +72,8 @@ app.post('/api/publish', (req, res) => {
           name, desc, long_desc, homepage, token,
           versions: (pkg.get_key(`packages/${name}/versions`) || []).concat(version) };
 
-      if (forbbiden_pkg_names.includes(name)) {
-        res.status(403).send({ message: 'Package name is forbbiden to use.' })
+      if (forbidden_pkg_names.includes(name)) {
+        res.status(403).send({ message: 'Package name is forbidden to use.' })
       }
 
       try {
