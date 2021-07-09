@@ -9,7 +9,7 @@ const auth = require('./auth')
 const app = express()
 const pkg = new DB('./packages.txt', true, process.env.KEY)
 const users = new DB('./users.txt', true, process.env.KEY)
-const PORT = process.env.PORT || 5000
+const PORT = 5000
 const allowed_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_'
 const allow_chars_usr = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_'
 const forbidden_pkg_names = ['std', 'gamescene']
@@ -169,7 +169,11 @@ app.post('/api/users/register', (req, res) => {
       res.status(403).send({ message: 'Password must only include the alphabet, digits and _.' })
       return }
     
-    users.set_key(`users/${user}`, { pass: auth.hash_pass(pass) })
+    auth.hash_pass(pass)
+      .then(hash => {
+        users.set_key(`users/${user}`, { pass: hash })
+      })
+    
     auth.create_token(user, process.env.KEY)
       .then(jwt => {
         res.status(200).send({ message: 'User registered successfully!', token: jwt })
@@ -185,16 +189,17 @@ app.post('/api/users/login', (req, res) => {
 
   if (user && pass) {
     if (user in users.get_key('users')) {
-      const check_pass = auth.check_pass(user, pass, users)
-      
-      if (check_pass) {
-        auth.create_token(user, process.env.KEY)
-          .then(jwt => {
-            res.status(200).send({ message: 'Login successful.', token: jwt })
-          })
-      } else {
-        res.status(403).send({ message: 'Incorrect username or password.' })
-      }
+      auth.check_pass(user, pass, users)
+        .then(check_pass => {
+          if (check_pass) {
+            auth.create_token(user, process.env.KEY)
+              .then(jwt => {
+                res.status(200).send({ message: 'Login successful.', token: jwt })
+              })
+          } else {
+            res.status(403).send({ message: 'Incorrect username or password.' })
+          }
+        })
     } else {
       res.status(403).send({ message: 'Incorrect username or password.' })
     }
