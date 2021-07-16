@@ -27,6 +27,8 @@ Temporary server at https://43a508f0b66c.ngrok.io
 # Todo
 - [x] make a cli
 - [x] add dependencies for packages
+- [ ] add rate limiting system
+- [ ] change database to use something other than json file
 - [ ] add package generator
 - [ ] make a frontend
 - [ ] buy `pckp.xyz` and use it to host the api and frontend
