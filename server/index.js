@@ -2,6 +2,7 @@ const express = require('express')
 const fs = require('fs')
 const sp = require('synchronized-promise')
 const ss = require('string-similarity')
+const rate_limit = require('express-rate-limit')
 const { make_pkg } = require('./pkg')
 const { DB } = require('./db')
 const auth = require('./auth')
@@ -13,6 +14,12 @@ const PORT = 5000
 const allowed_chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_'
 const allow_chars_usr = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_'
 const forbidden_pkg_names = ['std', 'gamescene']
+const rate_limiter = new rate_limit({
+  windowMs: 60000 * 60,
+  max: 15,
+  message: { message: 'You have been rate limited. Maximum 15 requests per hour.' }
+})
+app.use('/api/', rate_limiter)
 users.set_key('users', {})
 pkg.set_key('packages', {})
 console.log(users.get_key('users'))

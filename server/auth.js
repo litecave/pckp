@@ -1,6 +1,6 @@
 const { SignJWT } = require('jose/jwt/sign')
 const { jwtVerify } = require('jose/jwt/verify')
-const { createSecretKey, createHash } = require('crypto')
+const { createSecretKey } = require('crypto')
 const argon2 = require('argon2-browser')
 
 function create_token(user, key) {
