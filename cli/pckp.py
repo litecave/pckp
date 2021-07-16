@@ -3,7 +3,7 @@ from json import loads, JSONDecodeError
 import helper
 import sys
 
-URL = 'https://43a508f0b66c.ngrok.io'
+URL = 'http://localhost:5000'
 URLS = {
     "INSTALL": f"{URL}/api/package/{{0}}/download",
     "PKG_INFO": f"{URL}/api/package/{{0}}",

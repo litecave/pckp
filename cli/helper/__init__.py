@@ -1,9 +1,8 @@
 from prettytable import PrettyTable, MSWORD_FRIENDLY
-from .printing import loadingMessage, err, success
+from .printing import err, success
 from appdirs import user_data_dir
 from shutil import rmtree
 from pathlib import Path
-from sys import exit
 import requests
 import tarfile
 import json
@@ -157,4 +156,3 @@ def search(package, url):
         table.add_row(rating.values())
     table.set_style(MSWORD_FRIENDLY)
     print(table)
-    exit()
