@@ -20,7 +20,7 @@ Gets package info.
 - homepage: Homepage of the package.  
 ***type***: `string`
 
-- versions: Versions avalible.  
+- versions: Versions available.  
 ***type***: `array`
 
 ### Example
