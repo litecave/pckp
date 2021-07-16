@@ -28,7 +28,7 @@ Temporary server at nowhere
 - [x] make a cli
 - [x] add dependencies for packages
 - [x] add rate limiting system
-- [ ] change database to use something other than json file
+- [ ] change database to use something other than txt file
 - [ ] add package generator
 - [ ] make a frontend
 - [ ] buy `pckp.xyz` and use it to host the api and frontend
