@@ -8,7 +8,7 @@ Api docs is located in [DOCS.md](https://github.com/sertdfyguhi/pckp/blob/master
 # How to start server
 Temporary server at https://43a508f0b66c.ngrok.io
 
-## not manually (only on macos)
+## not manually (macos and linux)
 1. Download [run_server.sh](https://github.com/sertdfyguhi/pckp/blob/master/run_server.sh)
 2. Run `chmod +x <run_server.sh path>`
 3. Run `run_server.sh`
@@ -27,6 +27,8 @@ Temporary server at https://43a508f0b66c.ngrok.io
 # Todo
 - [x] make a cli
 - [x] add dependencies for packages
+- [ ] add rate limiting system
+- [ ] change database to use something other than json file
 - [ ] add package generator
 - [ ] make a frontend
 - [ ] buy `pckp.xyz` and use it to host the api and frontend
