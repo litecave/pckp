@@ -9,6 +9,7 @@
     "express": "^4.17.1",
     "express-rate-limit": "^5.3.0",
     "jose": "^3.13.0",
+    "mongodb": "^4.0.0",
     "string-similarity": "^4.0.4",
     "synchronized-promise": "^0.3.1"
   }
