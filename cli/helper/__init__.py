@@ -1,6 +1,7 @@
 from prettytable import PrettyTable, MSWORD_FRIENDLY
 from .printing import err, success
 from appdirs import user_data_dir
+from getpass import getpass
 from shutil import rmtree
 from pathlib import Path
 import requests
@@ -114,10 +115,10 @@ def uninstall(package):
 
     success(f'{package} successfully uninstalled.')
 
-def register(user, password, url):
+def register(url):
     data = {
-        "user": user,
-        "pass": password
+        "user": input('username: '),
+        "pass": getpass('password: ')
     }
 
     req = requests.post(url, json=data)

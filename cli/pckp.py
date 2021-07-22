@@ -21,8 +21,8 @@ Subcommands:
   version, -v                      Version of pckp.
   install [package]                Installs a package.
   uninstall [package]              Uninstalls a package.
-  register [user] [password]       Registers a new account.
-  login [user] [password]          Login into an account.
+  register                         Registers a new account.
+  login                            Login into an account.
   publish                          Publishes a package.
   search [package]                 Searches for packages.'''
 VERSION = '1.0.0'
@@ -44,13 +44,9 @@ elif args[0] == 'install':
 elif args[0] == 'uninstall':
     helper.uninstall(args[1] if len(args) > 1 else err('Package argument not supplied.'))
 elif args[0] == 'register':
-    if len(args) < 3:
-        err('User or password argument not supplied.')
-    helper.register(args[1], args[2], URLS['REGISTER'])
+    helper.register(URLS['REGISTER'])
 elif args[0] == 'login':
-    if len(args) < 3:
-        err('User or password argument not supplied.')
-    helper.register(args[1], args[2], URLS['LOGIN'])
+    helper.register(URLS['LOGIN'])
 elif args[0] == 'publish':
     if not exists('pckp.json'):
         err('pckp.json does not exist in current working directory.')
