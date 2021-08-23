@@ -4,7 +4,7 @@ const { createSecretKey } = require('crypto')
 const argon2 = require('argon2-browser')
 
 function create_token(user, key) {
-  const jwt = new SignJWT({ user: user })
+  const jwt = new SignJWT({ user })
     .setProtectedHeader({ alg: 'HS256' })
     .sign(createSecretKey(key))
 
@@ -23,7 +23,7 @@ function check_pass(user, pass, db) {
 }
 
 function hash_pass(pass) {
-  return argon2.hash({ pass: pass, salt: process.env.KEY })
+  return argon2.hash({ pass, salt: process.env.KEY })
     .then(res => {
       return res.hashHex
     })
