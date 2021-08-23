@@ -53,10 +53,13 @@ app.get('/api/search', (req, res) => {
       return a.rating + b.rating
     }).filter(rating => rating.rating > 0.6)
       .map(rating => {
-        let resp = pkg.get_key(`packages/${rating.target}`)
-        return { name: resp.name, 
-          version: resp.versions[resp.versions.length - 1],
-          author: resp.author } })
+        let { author, versions, name } = pkg.get_key(`packages/${rating.target}`)
+        return { 
+          name, 
+          version: versions[resp.versions.length - 1],
+          author 
+        } 
+      })
     res.status(200).send(matches)
   } else {
     res.status(422).send({ message: 'Search query not provided.' })
